@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import { FC, ReactElement } from 'react';
 import { format } from 'date-fns';
 import { TaskCounter } from '../../taskCounter/taskCounter';
+import { Task } from '../../task/task';
 export const TaskArea: FC = (): ReactElement => {
   return (
     <>
@@ -15,7 +16,7 @@ export const TaskArea: FC = (): ReactElement => {
         </Box>
         <Grid
           container
-          display="column"
+          // display="flex"
           direction='column'
           justifyContent="center"
         >
@@ -25,7 +26,6 @@ export const TaskArea: FC = (): ReactElement => {
             display="flex"
             justifyContent="space-around"
             alignItems="center"
-            size="grow"
             md={10}
             xs={12}
             mb={8}
@@ -35,19 +35,18 @@ export const TaskArea: FC = (): ReactElement => {
           <TaskCounter  />
           </Grid>
           <Grid 
+            direction='row'
             item
-            direction='column'
-            display="flex"
-            justifyContent="center"
+            display="column"
+            justifyContent="space-around"
             alignItems="center"
-            size="grow"
             md={10}
             xs={12}
             mb={8}
           >
-            <Box>Task Will Come Over Here</Box>
-            <Box>Task Will Come Over Here</Box>
-            <Box>Task Will Come Over Here</Box>
+            <Task  />
+            <Task  />
+            <Task  />
           </Grid>
         </Grid>
       </Grid>
