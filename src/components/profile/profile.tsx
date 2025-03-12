@@ -1,6 +1,5 @@
 import { FC, ReactElement } from 'react';
 import { Avatar, Box, Typography } from '@mui/material';
-import Grid from '@mui/material/Grid2';
 import PropTypes from 'prop-types';
 
 interface IProfile {
@@ -9,22 +8,13 @@ interface IProfile {
 
 export const Profile: FC<IProfile> = ({ name = 'John' }): ReactElement => {
   return (
-    <Grid
-      container
-      direction="column"
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        minHeight: '100vh', // Centers vertically
-      }}
-    >
       <Box
         sx={{
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center', // Ensures Avatar and text are centered
           textAlign: 'center',
+          // marginTop: '10px'
         }}
       >
         <Avatar
@@ -46,7 +36,6 @@ export const Profile: FC<IProfile> = ({ name = 'John' }): ReactElement => {
           This is your personal task manager
         </Typography>
       </Box>
-    </Grid>
   );
 };
 

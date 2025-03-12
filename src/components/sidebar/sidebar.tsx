@@ -1,11 +1,12 @@
 import {FC, ReactElement} from 'react'
-import Grid2 from '@mui/material/Grid2'
+import Grid from '@mui/material/Grid2'
 import { Profile } from '../profile/profile'
 import { CreateTaskForm } from '../createTaskForm/createTaskForm'
 export const Sidebar:FC = (): ReactElement => {
   return (
   <>
-    <Grid2
+    <Grid
+        container
         size={{ xs: 12, md: 4 }} 
         direction="column"
         sx={{
@@ -13,9 +14,10 @@ export const Sidebar:FC = (): ReactElement => {
           justifyContent:'center',
           alignItems: "center",
     }}>
+    
         <Profile name='Dan'/>
         <CreateTaskForm  />
-    </Grid2>
+    </Grid>
     </>
   )
 }
