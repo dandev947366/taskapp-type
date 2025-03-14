@@ -1,0 +1,21 @@
+### Fetch all tasks
+
+GET http://localhost:3200/tasks
+Content-Type: application/json
+
+POST http://localhost:3200/tasks
+Content-Type: application/json
+{
+    "title": "Lorem ipsum123",
+    "date":"2025-03001T12:00:00Z",
+    "description":"Lorem ipsum",
+    "priority":"normal",
+    "status":"todo"
+}
+
+PUT http://localhost:3200/tasks
+Content-Type: application/json
+{
+    "id": "a8b9d7ea-0024-11f0-a561-0242ac110002",
+    "status":"todo"
+}
