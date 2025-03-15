@@ -27,7 +27,7 @@ export const TaskFooter: FC<ITaskFooter> = (
           label="In Progress"
           control={
             <Switch
-              onChange={(e)=>onStatusChange(e, id)}
+              onChange={(e) => onStatusChange(e, id)}
               color='warning'
               defaultChecked={status===Status.inProgress}
             />}
@@ -37,7 +37,7 @@ export const TaskFooter: FC<ITaskFooter> = (
             color='success'
             size='small'
             sx={{color: '#ffffff'}}
-            // onClick={onClick}
+            onClick={(e) => onClick(e, id)}
         >Mark Complete</Button>
       {/* </FormGroup> */}
     </Box>

@@ -4,8 +4,6 @@ export const countTasks = (tasks:ITaskApi[], status: TaskCounterStatusType): num
     if(!Array.isArray(tasks)){
         return 0;
     }
-    const totalTasks = tasks.filter((task)=>{
-        task.status ===status
-    })
+    const totalTasks = tasks.filter((task) => task.status === status);
     return totalTasks.length
 }

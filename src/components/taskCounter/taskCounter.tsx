@@ -6,8 +6,8 @@ import {emitBorderColor} from "./helpers/emitColorBorder"
 import { emitLabel } from './helpers/emitLabel';
 export const TaskCounter: FC<ITaskCounter> = (props): ReactElement => {
     const {
-        counter=1,
-        status=Status.completed
+        counter,
+        status
     } = props
   return (
     <>

@@ -24,14 +24,15 @@ export const TaskArea: FC = (): ReactElement => {
         undefined,
       ),
   });
-  const updateTaskMutation = useMutation(
-    (data: IUpdateTask) =>
-      sendApiRequest(
+  const updateTaskMutation = useMutation({
+    mutationFn: (data: IUpdateTask) => {
+      return sendApiRequest(
         'http://localhost:3200/tasks',
         'PUT',
-        data,
-      ),
-  );
+        { id: data.id, status: data.status },
+      );
+    },
+  });
 
   function onStatusChangeHandler(e, id: string) {
     updateTaskMutation.mutate({
@@ -41,16 +42,13 @@ export const TaskArea: FC = (): ReactElement => {
         : Status.todo,
     });
   }
-  function markCompleteHandler(
-    e:
-      | React.MouseEvent<HTMLButtonElement>
-      | React.MouseEvent<HTMLAnchorElement>,
-    id: string,
-  ) {
-    updateTaskMutation.mutate({
+
+  function markCompleteHandler(e: React.MouseEvent<HTMLButtonElement>, id: string) {
+    const taskData = {
       id,
       status: Status.completed,
-    });
+    };
+    updateTaskMutation.mutate(taskData);
   }
   return (
     <>
@@ -76,15 +74,18 @@ export const TaskArea: FC = (): ReactElement => {
             xs={12}
             mb={8}
           >
-            <TaskCounter 
-              // counter={data ? countTasks(data,Status.todo): undefined}
-              status={Status.todo}/>
-            <TaskCounter 
-              // counter={data ? countTasks(data,Status.inProgress): undefined}
-              status={Status.inProgress}/>
-            <TaskCounter 
-              // counter={data ? countTasks(data,Status.completed): undefined}
-              status={Status.completed}/>
+            <TaskCounter
+              counter={data ? countTasks(data,Status.todo): undefined}
+              status={Status.todo}
+            />
+            <TaskCounter
+              counter={data ? countTasks(data,Status.inProgress): undefined}
+              status={Status.inProgress}
+            />
+            <TaskCounter
+              counter={data ? countTasks(data,Status.completed): undefined}
+              status={Status.completed}
+            />
           </Grid>
           <Grid
             direction="row"
@@ -117,7 +118,6 @@ export const TaskArea: FC = (): ReactElement => {
           </Grid>
           {Array.isArray(data) && data.length > 0 ? (
             data.map((task, index) => {
-              console.log('Task item:', task.date); // Debugging
               return task.status === Status.todo ||
                 task.status === Status.inProgress ? (
                 <Task
