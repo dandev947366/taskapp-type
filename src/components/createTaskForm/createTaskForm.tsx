@@ -1,5 +1,5 @@
-import { FC, ReactElement, useState } from 'react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { FC, ReactElement, useState, useEffect } from 'react';
+import { useMutation } from '@tanstack/react-query';
 import {
   Typography,
   Box,
@@ -17,6 +17,8 @@ import { Status } from './enums/Status';
 import { Priority } from './enums/Priority';
 import { sendApiRequest } from '../../helpers/apirequest';
 import { ICreateTask } from '../sidebar/taskArea/interfaces/ICreateTask';
+import { format } from 'date-fns';
+
 export const CreateTaskForm: FC = (): ReactElement => {
   const [title, setTitle] = useState<string | undefined>(
     undefined,
@@ -61,14 +63,24 @@ export const CreateTaskForm: FC = (): ReactElement => {
     const task: ICreateTask = {
       title,
       description,
-      date: date.toString(),
+      date: format(new Date(date), "PPP"),
       status,
       priority,
     };
 
     createTaskMutation.mutate(task);
   };
-
+  useEffect(()=>{
+    if(createTaskMutation.isSuccess){
+      setShowSuccess(true)
+    }
+    const successTimeout = setTimeout(()=>{
+      setShowSuccess(false)
+    }, 7000);
+    return()=>{
+      clearTimeout(successTimeout)
+    }
+  },[createTaskMutation.isSuccess])
   return (
     <Box
       display="flex"
@@ -87,13 +99,8 @@ export const CreateTaskForm: FC = (): ReactElement => {
           severity="success"
           sx={{ width: '100%', marginBottom: '16px' }}
         >
-          <Alert
-            severity="success"
-            sx={{ width: '100%', marginBottom: '16px' }}
-          >
             <AlertTitle>Success</AlertTitle>
             The task has been created successfully
-          </Alert>
         </Alert>
       )}
       <Typography mb={2} component="h2" variant="h6">
@@ -179,7 +186,7 @@ export const CreateTaskForm: FC = (): ReactElement => {
           fullWidth
           onClick={createTaskHandler}
         >
-          Create A Task
+           {createTaskMutation.isLoading ? 'Creating...' : 'Create Task'}
         </Button>
       </Stack>
     </Box>

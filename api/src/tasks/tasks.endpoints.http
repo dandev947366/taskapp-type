@@ -16,6 +16,6 @@ Content-Type: application/json
 PUT http://localhost:3200/tasks
 Content-Type: application/json
 {
-    "id": "a8b9d7ea-0024-11f0-a561-0242ac110002",
-    "status":"todo"
+    "id": "1afc8f07-53ba-4085-b479-3ba8252ba783",
+    "status":"inProgress"
 }
